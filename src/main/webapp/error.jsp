@@ -10,20 +10,21 @@
         .error-container { background: #f5b7b1; padding: 20px; border-radius: 5px; max-width: 600px; border: 2px solid #e74c3c; }
         h1 { color: #c0392b; }
         .error-details { background: white; padding: 10px; border-radius: 3px; margin-top: 10px; }
+        a { color: #2980b9; text-decoration: none; }
     </style>
 </head>
 <body>
     <div class="error-container">
-        <h1>Ошибка при обработке запроса</h1>
-        <p>К сожалению, произошла ошибка. Пожалуйста, попробуйте снова.</p>
-
+        <h1>⚠️ Произошла ошибка</h1>
+        <p>К сожалению, при обработке вашего запроса произошла ошибка.</p>
+        
         <div class="error-details">
             <p><strong>Тип ошибки:</strong> <%= exception.getClass().getName() %></p>
             <p><strong>Сообщение:</strong> <%= exception.getMessage() %></p>
         </div>
-
+        
         <p style="margin-top: 20px;">
-            <a href="competition.jsp" style="color: #2980b9; text-decoration: none;">← Вернуться на главную страницу</a>
+            <a href="index.jsp">← На главную страницу</a>
         </p>
     </div>
 </body>

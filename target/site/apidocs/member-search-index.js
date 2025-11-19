@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"rowing.web","c":"PreferencesProcessor","l":"doPost(HttpServletRequest, HttpServletResponse)","u":"doPost(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse)"},{"p":"rowing.web","c":"PreferencesProcessor","l":"PreferencesProcessor()","u":"%3Cinit%3E()","k":"3"}];updateSearchResults();
