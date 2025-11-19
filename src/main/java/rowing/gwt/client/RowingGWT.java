@@ -31,7 +31,7 @@ public class RowingGWT implements EntryPoint {
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.setWidth("100%");
 
-        Label title = new Label("🏊 Результаты соревнований по гребле");
+        Label title = new Label("Результаты соревнований по гребле");
         title.setStyleName("gwt-Label-Title");
         mainPanel.add(title);
 
@@ -78,7 +78,7 @@ public class RowingGWT implements EntryPoint {
                 String time = timeBox.getValue();
 
                 if (name.isEmpty() || date.isEmpty() || time.isEmpty()) {
-                    statusLabel.setText("❌ Заполните все поля!");
+                    statusLabel.setText("Заполните все поля!");
                     return;
                 }
 
@@ -89,7 +89,7 @@ public class RowingGWT implements EntryPoint {
                     dateBox.setValue("");
                     timeBox.setValue("");
                 } catch (Exception e) {
-                    statusLabel.setText("❌ Ошибка: " + e.getMessage());
+                    statusLabel.setText("Ошибка: " + e.getMessage());
                 }
             }
         });
@@ -156,16 +156,16 @@ public class RowingGWT implements EntryPoint {
                     if (response.getStatusCode() == 200) {
                         parseAndDisplayResults(response.getText());
                     } else {
-                        statusLabel.setText("❌ Ошибка: " + response.getStatusCode() + " - " + response.getStatusText());
+                        statusLabel.setText("Ошибка: " + response.getStatusCode() + " - " + response.getStatusText());
                     }
                 }
 
                 public void onError(Request request, Throwable exception) {
-                    statusLabel.setText("❌ Ошибка загрузки: " + exception.getMessage());
+                    statusLabel.setText("Ошибка загрузки: " + exception.getMessage());
                 }
             });
         } catch (RequestException e) {
-            statusLabel.setText("❌ Ошибка запроса: " + e.getMessage());
+            statusLabel.setText("Ошибка запроса: " + e.getMessage());
         }
     }
 
@@ -190,10 +190,10 @@ public class RowingGWT implements EntryPoint {
 
                 table.setRowCount(currentData.size(), true);
                 table.setRowData(0, currentData);
-                statusLabel.setText("✅ Загружено результатов: " + currentData.size());
+                statusLabel.setText("Загружено результатов: " + currentData.size());
             }
         } catch (Exception e) {
-            statusLabel.setText("❌ Ошибка парсинга: " + e.getMessage());
+            statusLabel.setText("Ошибка парсинга: " + e.getMessage());
         }
     }
 
@@ -201,6 +201,6 @@ public class RowingGWT implements EntryPoint {
         currentData.add(new CompetitionResult(name, date, distance, time));
         table.setRowCount(currentData.size(), true);
         table.setRowData(0, currentData);
-        statusLabel.setText("✅ Результат добавлен! Всего: " + currentData.size());
+        statusLabel.setText("Результат добавлен! Всего: " + currentData.size());
     }
 }

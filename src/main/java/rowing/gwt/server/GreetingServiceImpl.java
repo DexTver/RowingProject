@@ -7,15 +7,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Реализация сервлета для Tomcat 10 (Jakarta EE)
- * Обрабатывает GWT RPC запросы вручную
- */
 public class GreetingServiceImpl extends HttpServlet implements GreetingService {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +40,6 @@ public class GreetingServiceImpl extends HttpServlet implements GreetingService 
 
         PrintWriter out = response.getWriter();
 
-        // Простая реализация: возвращаем JSON с данными
         StringBuilder json = new StringBuilder("[");
         for (int i = 0; i < database.size(); i++) {
             CompetitionResult result = database.get(i);

@@ -2397,7 +2397,7 @@ QF,rowing.gwt.client.RowingGWT$6::$onError(Lrowing/gwt/client/RowingGWT$6;Lcom/g
 RF,rowing.gwt.client.RowingGWT$6::RowingGWT$6(Lrowing/gwt/client/RowingGWT;) <init>,rowing.gwt.client.RowingGWT$6,RowingGWT$6,rowing/gwt/client/RowingGWT.java,154,0
 a,rowing.gwt.client.RowingGWT$6::this$01,rowing.gwt.client.RowingGWT$6,this$01,rowing/gwt/client/RowingGWT.java,154,-1
 CompetitionResult,,rowing.gwt.shared.CompetitionResult,,rowing/gwt/shared/CompetitionResult.java,8,-1
-SF,rowing.gwt.shared.CompetitionResult::CompetitionResult(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;) <init>,rowing.gwt.shared.CompetitionResult,CompetitionResult,rowing/gwt/shared/CompetitionResult.java,22,0
+SF,rowing.gwt.shared.CompetitionResult::CompetitionResult(Ljava/lang/String;Ljava/lang/String;ILjava/lang/String;) <init>,rowing.gwt.shared.CompetitionResult,CompetitionResult,rowing/gwt/shared/CompetitionResult.java,20,0
 a,rowing.gwt.shared.CompetitionResult::athleteName,rowing.gwt.shared.CompetitionResult,athleteName,rowing/gwt/shared/CompetitionResult.java,12,-1
 b,rowing.gwt.shared.CompetitionResult::date,rowing.gwt.shared.CompetitionResult,date,rowing/gwt/shared/CompetitionResult.java,13,-1
 c,rowing.gwt.shared.CompetitionResult::distance,rowing.gwt.shared.CompetitionResult,distance,rowing/gwt/shared/CompetitionResult.java,14,-1

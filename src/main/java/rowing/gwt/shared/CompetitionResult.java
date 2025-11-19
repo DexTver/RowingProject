@@ -14,11 +14,9 @@ public class CompetitionResult implements Serializable {
     private int distance;
     private String time;
 
-    // Конструктор по умолчанию (обязателен для GWT)
     public CompetitionResult() {
     }
 
-    // Конструктор с параметрами
     public CompetitionResult(String athleteName, String date, int distance, String time) {
         this.athleteName = athleteName;
         this.date = date;
@@ -26,7 +24,6 @@ public class CompetitionResult implements Serializable {
         this.time = time;
     }
 
-    // Геттеры и сеттеры
     public String getAthleteName() {
         return athleteName;
     }

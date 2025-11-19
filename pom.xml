@@ -19,7 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- GWT User -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
@@ -27,14 +26,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- GWT Servlet -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwtVersion}</version>
         </dependency>
 
-        <!-- GWT Dev -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
@@ -42,7 +39,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jakarta Servlet для Tomcat 10 -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -55,7 +51,6 @@
         <finalName>RowingProject</finalName>
 
         <plugins>
-            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -67,7 +62,6 @@
                 </configuration>
             </plugin>
 
-            <!-- GWT Maven Plugin -->
             <plugin>
                 <groupId>net.ltgt.gwt.maven</groupId>
                 <artifactId>gwt-maven-plugin</artifactId>
@@ -87,7 +81,6 @@
                 </executions>
             </plugin>
 
-            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -98,7 +91,6 @@
                 </configuration>
             </plugin>
 
-            <!-- JavaDoc Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>

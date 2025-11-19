@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module rename-to='RowingGWT'>
-  <!-- Наследуем базовый модуль GWT -->
-  <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name='com.google.gwt.json.JSON'/>
+    <inherits name='com.google.gwt.http.HTTP'/>
 
-  <!-- Добавляем поддержку JSON -->
-  <inherits name='com.google.gwt.json.JSON'/>
+    <entry-point class='rowing.gwt.client.RowingGWT'/>
 
-  <!-- Добавляем поддержку HTTP запросов -->
-  <inherits name='com.google.gwt.http.HTTP'/>
-
-  <!-- Entry point приложения -->
-  <entry-point class='rowing.gwt.client.RowingGWT'/>
-
-  <!-- Указываем пути к исходникам -->
-  <source path='client'/>
-  <source path='shared'/>
+    <source path='client'/>
+    <source path='shared'/>
 </module>
