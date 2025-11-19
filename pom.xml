@@ -19,7 +19,7 @@
     </properties>
 
     <dependencies>
-        <!-- GWT User (клиентская часть) -->
+        <!-- GWT User -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-user</artifactId>
@@ -27,14 +27,14 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- GWT Servlet (серверная часть) -->
+        <!-- GWT Servlet -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-servlet</artifactId>
             <version>${gwtVersion}</version>
         </dependency>
 
-        <!-- GWT Dev (для компиляции) -->
+        <!-- GWT Dev -->
         <dependency>
             <groupId>com.google.gwt</groupId>
             <artifactId>gwt-dev</artifactId>
@@ -42,7 +42,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Jakarta Servlet API -->
+        <!-- Jakarta Servlet для Tomcat 10 -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -55,7 +55,7 @@
         <finalName>RowingProject</finalName>
 
         <plugins>
-            <!-- Maven Compiler Plugin -->
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -77,9 +77,6 @@
                     <moduleName>rowing.gwt.RowingGWT</moduleName>
                     <moduleShortName>RowingGWT</moduleShortName>
                     <failOnError>true</failOnError>
-                    <classpathScope>compile+runtime</classpathScope>
-                    <warDir>${project.build.directory}/${project.build.finalName}</warDir>
-                    <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
                 </configuration>
                 <executions>
                     <execution>
@@ -90,7 +87,7 @@
                 </executions>
             </plugin>
 
-            <!-- Maven WAR Plugin -->
+            <!-- WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

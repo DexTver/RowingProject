@@ -2,49 +2,49 @@ package rowing.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.http.client.*;
+import com.google.gwt.json.client.JSONArray;
+import com.google.gwt.json.client.JSONObject;
+import com.google.gwt.json.client.JSONParser;
+import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.*;
 import rowing.gwt.shared.CompetitionResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Entry point для GWT-приложения "Соревнования по гребле"
+ * Использует прямые HTTP запросы вместо GWT RPC для совместимости с Tomcat 10
  */
 public class RowingGWT implements EntryPoint {
 
-    private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
     private CellTable<CompetitionResult> table;
     private Label statusLabel;
+    private List<CompetitionResult> currentData = new ArrayList<>();
 
     public void onModuleLoad() {
-        // Создание главной панели
         VerticalPanel mainPanel = new VerticalPanel();
         mainPanel.setWidth("100%");
 
-        // Заголовок
         Label title = new Label("🏊 Результаты соревнований по гребле");
         title.setStyleName("gwt-Label-Title");
         mainPanel.add(title);
 
-        // Статус сообщения
         statusLabel = new Label();
         statusLabel.setStyleName("gwt-Label-Status");
         mainPanel.add(statusLabel);
 
-        // Форма добавления результата
         HorizontalPanel formPanel = createFormPanel();
         mainPanel.add(formPanel);
 
-        // Таблица результатов
         table = createTable();
         mainPanel.add(table);
 
-        // Загрузка данных с сервера
         loadResults();
 
         RootPanel.get("mainContainer").add(mainPanel);
@@ -88,8 +88,8 @@ public class RowingGWT implements EntryPoint {
                     nameBox.setValue("");
                     dateBox.setValue("");
                     timeBox.setValue("");
-                } catch (NumberFormatException e) {
-                    statusLabel.setText("❌ Ошибка в формате дистанции!");
+                } catch (Exception e) {
+                    statusLabel.setText("❌ Ошибка: " + e.getMessage());
                 }
             }
         });
@@ -110,7 +110,6 @@ public class RowingGWT implements EntryPoint {
     private CellTable<CompetitionResult> createTable() {
         CellTable<CompetitionResult> cellTable = new CellTable<>();
 
-        // Столбец "Имя спортсмена"
         TextColumn<CompetitionResult> nameColumn = new TextColumn<CompetitionResult>() {
             @Override
             public String getValue(CompetitionResult object) {
@@ -119,7 +118,6 @@ public class RowingGWT implements EntryPoint {
         };
         cellTable.addColumn(nameColumn, "Спортсмен");
 
-        // Столбец "Дата"
         TextColumn<CompetitionResult> dateColumn = new TextColumn<CompetitionResult>() {
             @Override
             public String getValue(CompetitionResult object) {
@@ -128,7 +126,6 @@ public class RowingGWT implements EntryPoint {
         };
         cellTable.addColumn(dateColumn, "Дата");
 
-        // Столбец "Дистанция"
         TextColumn<CompetitionResult> distanceColumn = new TextColumn<CompetitionResult>() {
             @Override
             public String getValue(CompetitionResult object) {
@@ -137,7 +134,6 @@ public class RowingGWT implements EntryPoint {
         };
         cellTable.addColumn(distanceColumn, "Дистанция");
 
-        // Столбец "Время"
         TextColumn<CompetitionResult> timeColumn = new TextColumn<CompetitionResult>() {
             @Override
             public String getValue(CompetitionResult object) {
@@ -150,30 +146,61 @@ public class RowingGWT implements EntryPoint {
     }
 
     private void loadResults() {
-        greetingService.getCompetitionResults(new AsyncCallback<List<CompetitionResult>>() {
-            public void onFailure(Throwable caught) {
-                statusLabel.setText("❌ Ошибка загрузки данных: " + caught.getMessage());
-            }
+        String url = GWT.getModuleBaseURL() + "greet";
 
-            public void onSuccess(List<CompetitionResult> result) {
-                table.setRowCount(result.size(), true);
-                table.setRowData(0, result);
-                statusLabel.setText("✅ Загружено результатов: " + result.size());
+        RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
+
+        try {
+            builder.sendRequest(null, new RequestCallback() {
+                public void onResponseReceived(Request request, Response response) {
+                    if (response.getStatusCode() == 200) {
+                        parseAndDisplayResults(response.getText());
+                    } else {
+                        statusLabel.setText("❌ Ошибка: " + response.getStatusCode() + " - " + response.getStatusText());
+                    }
+                }
+
+                public void onError(Request request, Throwable exception) {
+                    statusLabel.setText("❌ Ошибка загрузки: " + exception.getMessage());
+                }
+            });
+        } catch (RequestException e) {
+            statusLabel.setText("❌ Ошибка запроса: " + e.getMessage());
+        }
+    }
+
+    private void parseAndDisplayResults(String json) {
+        try {
+            currentData.clear();
+            JSONValue value = JSONParser.parseStrict(json);
+            JSONArray array = value.isArray();
+
+            if (array != null) {
+                for (int i = 0; i < array.size(); i++) {
+                    JSONObject obj = array.get(i).isObject();
+                    if (obj != null) {
+                        String name = obj.get("athleteName").isString().stringValue();
+                        String date = obj.get("date").isString().stringValue();
+                        int distance = (int) obj.get("distance").isNumber().doubleValue();
+                        String time = obj.get("time").isString().stringValue();
+
+                        currentData.add(new CompetitionResult(name, date, distance, time));
+                    }
+                }
+
+                table.setRowCount(currentData.size(), true);
+                table.setRowData(0, currentData);
+                statusLabel.setText("✅ Загружено результатов: " + currentData.size());
             }
-        });
+        } catch (Exception e) {
+            statusLabel.setText("❌ Ошибка парсинга: " + e.getMessage());
+        }
     }
 
     private void addResult(String name, String date, int distance, String time) {
-        greetingService.addCompetitionResult(name, date, distance, time,
-            new AsyncCallback<CompetitionResult>() {
-                public void onFailure(Throwable caught) {
-                    statusLabel.setText("❌ Ошибка добавления: " + caught.getMessage());
-                }
-
-                public void onSuccess(CompetitionResult result) {
-                    statusLabel.setText("✅ Результат добавлен успешно!");
-                    loadResults();
-                }
-            });
+        currentData.add(new CompetitionResult(name, date, distance, time));
+        table.setRowCount(currentData.size(), true);
+        table.setRowData(0, currentData);
+        statusLabel.setText("✅ Результат добавлен! Всего: " + currentData.size());
     }
 }
