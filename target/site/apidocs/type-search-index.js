@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html","k":"18"},{"p":"rowing.gwt.shared","l":"CompetitionResult"},{"p":"rowing.gwt.client","l":"GreetingService","k":"10"},{"p":"rowing.gwt.client","l":"GreetingServiceAsync","k":"10"},{"p":"rowing.gwt.server","l":"GreetingServiceImpl"},{"p":"rowing.gwt.client","l":"RowingGWT"}];updateSearchResults();

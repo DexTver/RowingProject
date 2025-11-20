@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"rowing.gwt.client"},{"l":"rowing.gwt.server"},{"l":"rowing.gwt.shared"}];updateSearchResults();
